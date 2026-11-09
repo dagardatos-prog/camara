@@ -18,7 +18,6 @@
             padding: 10px;
         }
 
-        /* Visor extra grande y cómodo para excelente visibilidad (520px x 680px) */
         .visor-container {
             position: relative;
             width: 520px;
@@ -34,10 +33,9 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1); /* Efecto espejo */
+            transform: scaleX(-1);
         }
 
-        /* Guías amplias y proporcionales */
         .guia-carnet {
             position: absolute;
             top: 0;
@@ -49,25 +47,27 @@
             border-radius: 16px;
         }
 
+        /* Óvalo ajustado: más centrado, más ancho y más alto para abarcar toda la cabeza */
         .oval-rostro {
             position: absolute;
-            top: 8%;
+            top: 15%;
             left: 50%;
             transform: translateX(-50%);
-            width: 280px;
-            height: 360px;
-            border: 2px dashed rgba(52, 211, 153, 0.9);
+            width: 320px;
+            height: 410px;
+            border: 2px dashed rgba(52, 211, 153, 0.95);
             border-radius: 50%;
         }
 
+        /* Línea de hombros movida hacia arriba para coincidir con el cuello y clavícula */
         .silueta-hombros {
             position: absolute;
-            bottom: 2%;
+            bottom: 8%;
             left: 50%;
             transform: translateX(-50%);
             width: 440px;
-            height: 180px;
-            border-top: 2px dashed rgba(52, 211, 153, 0.9);
+            height: 160px;
+            border-top: 2px dashed rgba(52, 211, 153, 0.95);
             border-radius: 50% 50% 0 0;
         }
 
@@ -94,7 +94,7 @@
 <body>
 
     <h2 style="margin: 0 0 5px 0; color: #fef08a; font-size: 1.4rem;">📷 Encuadre Carnet Oficial</h2>
-    <p style="margin: 0 0 15px 0; color: #94a3b8; font-size: 0.95rem;">Alinee la cabeza y hombros holgadamente dentro de las guías verdes</p>
+    <p style="margin: 0 0 15px 0; color: #94a3b8; font-size: 0.95rem;">Alinee la cabeza dentro del óvalo y los hombros en la base</p>
 
     <div class="visor-container">
         <video id="videoWebcam" autoplay playsinline></video>
