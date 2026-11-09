@@ -13,16 +13,16 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-h: 100vh;
+            min-height: 100vh;
             margin: 0;
             padding: 10px;
         }
 
-        /* Contenedor con relación de aspecto carnet 3:4 */
+        /* Visor más amplio para mejor comodidad visual (380x510) */
         .visor-container {
             position: relative;
-            width: 320px;
-            height: 426px;
+            width: 380px;
+            height: 510px;
             border-radius: 16px;
             overflow: hidden;
             border: 3px solid #f59e0b;
@@ -30,15 +30,14 @@
             background: #000;
         }
 
-        /* El video se recorta automáticamente para enfoque de busto */
         video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scaleX(-1); /* Efecto espejo para comodidad al posar */
+            transform: scaleX(-1); /* Efecto espejo */
         }
 
-        /* Guía gráfica en pantalla para centrar rostro y hombros */
+        /* Guías de encuadre ajustadas y proporcionales */
         .guia-carnet {
             position: absolute;
             top: 0;
@@ -46,30 +45,29 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            box-sizing: border-border;
-            border: 2px dashed rgba(254, 240, 138, 0.6);
+            border: 2px dashed rgba(254, 240, 138, 0.4);
             border-radius: 12px;
         }
 
         .oval-rostro {
             position: absolute;
-            top: 15%;
+            top: 12%;
             left: 50%;
             transform: translateX(-50%);
-            width: 160px;
-            height: 210px;
-            border: 2px dashed rgba(52, 211, 153, 0.8);
+            width: 200px;
+            height: 260px;
+            border: 2px dashed rgba(52, 211, 153, 0.85);
             border-radius: 50%;
         }
 
         .silueta-hombros {
             position: absolute;
-            bottom: 5%;
+            bottom: 2%;
             left: 50%;
             transform: translateX(-50%);
-            width: 260px;
-            height: 100px;
-            border-top: 2px dashed rgba(52, 211, 153, 0.8);
+            width: 320px;
+            height: 130px;
+            border-top: 2px dashed rgba(52, 211, 153, 0.85);
             border-radius: 50% 50% 0 0;
         }
 
@@ -78,7 +76,7 @@
             background: #f59e0b;
             color: #020617;
             border: none;
-            padding: 12px 28px;
+            padding: 12px 30px;
             font-size: 1rem;
             font-weight: bold;
             border-radius: 12px;
@@ -95,8 +93,8 @@
 </head>
 <body>
 
-    <h3 style="margin: 0 0 10px 0; color: #fef08a; font-size: 1.1rem;">📷 Encuadre Carnet Oficial</h3>
-    <p style="margin: 0 0 15px 0; color: #94a3b8; font-size: 0.8rem;">Alinee la cabeza y hombros dentro de las guías</p>
+    <h3 style="margin: 0 0 5px 0; color: #fef08a; font-size: 1.2rem;">📷 Encuadre Carnet Oficial</h3>
+    <p style="margin: 0 0 12px 0; color: #94a3b8; font-size: 0.85rem;">Alinee la cabeza y hombros dentro de las guías verdes</p>
 
     <div class="visor-container">
         <video id="videoWebcam" autoplay playsinline></video>
@@ -111,7 +109,6 @@
     <script>
         const video = document.getElementById('videoWebcam');
 
-        // Iniciar cámara web nativa sin filtros
         navigator.mediaDevices.getUserMedia({ 
             video: { 
                 width: { ideal: 1280 },
@@ -127,16 +124,13 @@
 
         function capturarFoto() {
             const canvas = document.createElement('canvas');
-            // Proporción 3:4 limpia para fotografía carnet
             canvas.width = 480;
             canvas.height = 640;
             const ctx = canvas.getContext('2d');
 
-            // Invertir canvas para que la foto capturada coincida con el espejo
             ctx.translate(canvas.width, 0);
             ctx.scale(-1, 1);
 
-            // Dibujar con recorte proporcional central sin estirar
             const videoRatio = video.videoWidth / video.videoHeight;
             const canvasRatio = canvas.width / canvas.height;
             let sx, sy, sWidth, sHeight;
@@ -155,7 +149,6 @@
 
             ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
 
-            // Obtener foto en alta fidelidad y enviar al módulo de matrícula
             const fotoBase64 = canvas.toDataURL('image/jpeg', 0.95);
 
             if (window.opener) {
